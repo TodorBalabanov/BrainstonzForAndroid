@@ -2,7 +2,7 @@ package eu.veldsoft.brainstonz;
 
 import javax.swing.SwingUtilities;
 
-public class Test {
+class Test {
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {

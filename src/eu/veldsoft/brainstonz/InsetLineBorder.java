@@ -17,7 +17,7 @@ import javax.swing.border.LineBorder;
  *
  */
 @SuppressWarnings("serial")
-public class InsetLineBorder extends AbstractBorder {
+class InsetLineBorder extends AbstractBorder {
 
 	private EmptyBorder empty = null;
 	private LineBorder line = null;

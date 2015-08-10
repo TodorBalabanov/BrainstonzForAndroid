@@ -5,15 +5,15 @@ import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-public class EventHandler {
+class EventHandler {
 
-	public static String[] moveLabels = { "Place First Stone",
+	public static final String[] moveLabels = { "Place First Stone",
 			"Remove A Stone", "Place Second Stone", "Remove A Stone",
 			"First Move", "Game Over" };
-	public static String[] turnLabels = { "BLACK'S TURN", "WHITE'S TURN",
+	public static final String[] turnLabels = { "BLACK'S TURN", "WHITE'S TURN",
 			"IT'S A TIE!", "BLACK WINS!", "WHITE WINS!" };
 
-	public enum BrainstonzPlayer {
+	enum BrainstonzPlayer {
 		HUMAN, COMPUTER
 	}
 
@@ -22,7 +22,7 @@ public class EventHandler {
 	private static int state;
 	private static GameState gamestate;
 
-	public enum GameState {
+	enum GameState {
 		PREGAME, FIRSTMOVE, P1M1, P1M2, P1R1, P1R2, P2M1, P2M2, P2R1, P2R2, P1WIN, P2WIN, TIE
 	}
 

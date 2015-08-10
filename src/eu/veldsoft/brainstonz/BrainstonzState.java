@@ -2,7 +2,7 @@ package eu.veldsoft.brainstonz;
 
 import java.util.LinkedList;
 
-public class BrainstonzState {
+class BrainstonzState {
 
 	public static final String[] symbols = { "A", "B", "C", "D", "E", "F", "G",
 			"B", "G", "H", "F", "E", "C", "D", "A", "H" };

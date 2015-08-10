@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
-public class GamePanel extends JPanel {
+class GamePanel extends JPanel {
 
 	private SidePanel sidepanel = null;
 

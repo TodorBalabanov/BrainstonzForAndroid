@@ -14,7 +14,7 @@ import java.awt.Rectangle;
  * @author Administrator
  *
  */
-public class SquareLayout implements LayoutManager {
+class SquareLayout implements LayoutManager {
 
 	@Override
 	public void addLayoutComponent(String arg0, Component arg1) {

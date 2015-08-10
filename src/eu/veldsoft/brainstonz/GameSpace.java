@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 @SuppressWarnings("serial")
-public class GameSpace extends JPanel {
+class GameSpace extends JPanel {
 
 	private BufferedImage[] stonz = new BufferedImage[3];
 

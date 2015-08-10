@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
  * Loads icons and images used by the Brainstonz GUI.
  *
  */
-public class ImageLoader {
+class ImageLoader {
 
 	private static final String backgroundName = "/wood.jpg";
 	public static BufferedImage background = null;

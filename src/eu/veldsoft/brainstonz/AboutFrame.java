@@ -26,7 +26,9 @@ import javax.swing.border.EmptyBorder;
  *
  */
 @SuppressWarnings("serial")
-public class AboutFrame extends JFrame {
+class AboutFrame extends JFrame {
+
+	private int clickCount = 0;
 
 	public AboutFrame() {
 		super();
@@ -46,8 +48,6 @@ public class AboutFrame extends JFrame {
 		setBounds((screenSize.width - max) / 2, (screenSize.height - max) / 2,
 				max, max);
 	}
-
-	private int clickCount = 0;
 
 	public int getClicks() {
 		return ++clickCount;

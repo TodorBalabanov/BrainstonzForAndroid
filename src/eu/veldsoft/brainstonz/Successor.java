@@ -1,6 +1,6 @@
 package eu.veldsoft.brainstonz;
 
-public class Successor {
+class Successor {
 
 	public int state = 0;
 	public int[] moves = new int[] { -1, -1, -1, -1 };

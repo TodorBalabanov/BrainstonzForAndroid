@@ -15,7 +15,7 @@ import javax.swing.border.LineBorder;
  *
  */
 @SuppressWarnings("serial")
-public class GameBoard extends JPanel {
+class GameBoard extends JPanel {
 
 	public GameSpace[] spaces;
 
@@ -31,7 +31,7 @@ public class GameBoard extends JPanel {
 						new LineBorder(Color.BLACK, 3)));
 		innerBoard.setOpaque(false);
 		spaces = new GameSpace[16];
-		for (int i = 0; i < 16; i++) {
+		for (int i = 0; i < spaces.length; i++) {
 			innerBoard.add(spaces[i] = new GameSpace(i));
 		}
 		this.add(innerBoard);
@@ -49,7 +49,7 @@ public class GameBoard extends JPanel {
 	}
 
 	public void shuffleStonz() {
-		for (int i = 0; i < 16; i++) {
+		for (int i = 0; i < spaces.length; i++) {
 			spaces[i].setStonz(
 					ImageLoader.blackStonz[(int) (ImageLoader.numStonz * Math
 							.random())],

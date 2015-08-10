@@ -17,7 +17,7 @@ import javax.swing.JTextPane;
  *
  */
 @SuppressWarnings("serial")
-public class HelpFrame extends JFrame {
+class HelpFrame extends JFrame {
 
 	public HelpFrame() {
 		super();

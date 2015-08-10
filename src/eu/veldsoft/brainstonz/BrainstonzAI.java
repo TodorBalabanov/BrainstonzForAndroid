@@ -11,7 +11,7 @@ import java.util.List;
  * @author Administrator
  *
  */
-public class BrainstonzAI {
+class BrainstonzAI {
 
 	private static byte[] tree = null;
 

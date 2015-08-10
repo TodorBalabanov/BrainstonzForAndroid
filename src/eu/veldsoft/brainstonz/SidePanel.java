@@ -22,7 +22,7 @@ import javax.swing.border.TitledBorder;
 import eu.veldsoft.brainstonz.EventHandler.BrainstonzPlayer;
 
 @SuppressWarnings("serial")
-public class SidePanel extends JPanel {
+class SidePanel extends JPanel {
 
 	public PlayerPanel player1, player2;
 	public OptionsPanel options;
@@ -90,7 +90,7 @@ public class SidePanel extends JPanel {
 		return 2000 - options.slider.getValue();
 	}
 
-	public static class PlayerPanel extends JPanel {
+	static class PlayerPanel extends JPanel {
 
 		private final JSlider slider;
 		private final JComboBox typeSelect;
