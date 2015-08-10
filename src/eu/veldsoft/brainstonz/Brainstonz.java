@@ -1,53 +1,46 @@
 /**
  * 
  */
-package main;
-
-import gui.GamePanel;
-import image.ImageLoader;
+package eu.veldsoft.brainstonz;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import ai.BrainstonzAI;
-
 /**
  * @author Administrator
  *
  */
 public class Brainstonz {
-	
+
 	/**
 	 * @param args
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public static void main(String[] args) {
 		try {
 			BrainstonzAI.load();
 			ImageLoader.load();
-//			PropertiesSquarenessTheme theme = new PropertiesSquarenessTheme(new File(
-//					Brainstonz.class.getResource("brainstonz.smt").getFile()));
-//			SquarenessLookAndFeel.setCurrentSquarenessTheme(theme);
-			UIManager.setLookAndFeel("net.beeger.squareness.SquarenessLookAndFeel");
+			UIManager
+					.setLookAndFeel("net.beeger.squareness.SquarenessLookAndFeel");
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null,"Error loading Brainstonz. Sorry.",
-					"Error Loading",
+			JOptionPane.showMessageDialog(null,
+					"Error loading Brainstonz. Sorry.", "Error Loading",
 					JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 			return;
 		}
-		SwingUtilities.invokeLater(new Runnable(){
+		SwingUtilities.invokeLater(new Runnable() {
 
 			@SuppressWarnings("serial")
 			@Override
 			public void run() {
 				final GamePanel gamepanel = new GamePanel();
-				JFrame frame = new JFrame(){
+				JFrame frame = new JFrame() {
 					@Override
-					public void dispose(){
-						if(gamepanel != null)
+					public void dispose() {
+						if (gamepanel != null)
 							gamepanel.dispose();
 						super.dispose();
 					}
@@ -60,7 +53,7 @@ public class Brainstonz {
 				frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 				frame.setVisible(true);
 			}
-			
+
 		});
 	}
 

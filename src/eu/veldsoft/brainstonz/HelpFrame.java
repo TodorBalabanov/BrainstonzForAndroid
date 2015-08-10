@@ -1,9 +1,7 @@
 /**
  * 
  */
-package gui;
-
-import image.ImageLoader;
+package eu.veldsoft.brainstonz;
 
 import java.awt.Dimension;
 import java.io.IOException;
@@ -21,13 +19,14 @@ import javax.swing.JTextPane;
 @SuppressWarnings("serial")
 public class HelpFrame extends JFrame {
 
-	public HelpFrame(){
+	public HelpFrame() {
 		super();
 		JTextPane text = new JTextPane();
 		try {
-			text.setPage(HelpFrame.class.getResource("help.html"));
+			text.setPage(HelpFrame.class.getResource("/help.html"));
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Could not load help.", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Could not load help.",
+					"Error", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 			return;
 		}
@@ -38,9 +37,9 @@ public class HelpFrame extends JFrame {
 		setAlwaysOnTop(true);
 		setIconImage(ImageLoader.icon);
 		setTitle("Help");
-		setSize(new Dimension(500,600));
+		setSize(new Dimension(500, 600));
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setVisible(true);
 	}
-	
+
 }

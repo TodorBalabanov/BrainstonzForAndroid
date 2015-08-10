@@ -1,9 +1,7 @@
 /**
  * 
  */
-package gui;
-
-import image.ImageLoader;
+package eu.veldsoft.brainstonz;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -30,7 +28,7 @@ import javax.swing.border.EmptyBorder;
 @SuppressWarnings("serial")
 public class AboutFrame extends JFrame {
 
-	public AboutFrame(){
+	public AboutFrame() {
 		super();
 		add(getInfoPanel());
 		setAlwaysOnTop(true);
@@ -41,55 +39,56 @@ public class AboutFrame extends JFrame {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setVisible(true);
 	}
-	
-	private void squareAndCenter(){
+
+	private void squareAndCenter() {
 		int max = (int) Math.max(getWidth(), getHeight());
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		setBounds((screenSize.width-max)/2,(screenSize.height-max)/2, max, max);
+		setBounds((screenSize.width - max) / 2, (screenSize.height - max) / 2,
+				max, max);
 	}
-	
+
 	private int clickCount = 0;
-	public int getClicks(){
+
+	public int getClicks() {
 		return ++clickCount;
 	}
-	
-	private JPanel getInfoPanel(){
-		JPanel retVal = new JPanel(){
+
+	private JPanel getInfoPanel() {
+		JPanel retVal = new JPanel() {
 			@Override
-			public void paint(Graphics g){
-				g.setColor(new Color(205,133,63));
+			public void paint(Graphics g) {
+				g.setColor(new Color(205, 133, 63));
 				g.fillRect(0, 0, getWidth(), getHeight());
 				BufferedImage glyph = ImageLoader.glyphs[0];
-				g.drawImage(glyph, 0, 0, this.getWidth(), this.getHeight(),
-							0, 0, glyph.getWidth(), glyph.getHeight(), this);
-				g.setColor(new Color(205,133,63,200));
+				g.drawImage(glyph, 0, 0, this.getWidth(), this.getHeight(), 0,
+						0, glyph.getWidth(), glyph.getHeight(), this);
+				g.setColor(new Color(205, 133, 63, 200));
 				g.fillRect(0, 0, getWidth(), getHeight());
 				super.paint(g);
 			}
 		};
-		retVal.setLayout(new BoxLayout(retVal,BoxLayout.Y_AXIS));
-		retVal.setBorder(new EmptyBorder(10,10,10,10));
+		retVal.setLayout(new BoxLayout(retVal, BoxLayout.Y_AXIS));
+		retVal.setBorder(new EmptyBorder(10, 10, 10, 10));
 		retVal.setOpaque(false);
-		JLabel title = new JLabel("Brainstonz\u2122"),
-			   subtitle = new JLabel("By McWiz"),
-		   	   version = new JLabel("Version 1.0");
+		JLabel title = new JLabel("Brainstonz\u2122"), subtitle = new JLabel(
+				"By McWiz"), version = new JLabel("Version 1.0");
 		final JLabel date = new JLabel("Created 07/04/2009");
-		setFontSize(title,30);
-		setFontSize(subtitle,24);
-		setFontSize(version,20);
-		setFontSize(date,18);
+		setFontSize(title, 30);
+		setFontSize(subtitle, 24);
+		setFontSize(version, 20);
+		setFontSize(date, 18);
 		JButton okButton = new JButton("OK");
 		okButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
-		okButton.addActionListener(new ActionListener(){
+		okButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				AboutFrame.this.dispose();
 			}
 		});
-		date.addMouseListener(new MouseAdapter(){
+		date.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e){
-				if(AboutFrame.this.getClicks() >= 7){
+			public void mouseClicked(MouseEvent e) {
+				if (AboutFrame.this.getClicks() >= 7) {
 					date.setText("Created By Gary Doran");
 					AboutFrame.this.pack();
 					AboutFrame.this.squareAndCenter();
@@ -103,13 +102,13 @@ public class AboutFrame extends JFrame {
 		retVal.add(date);
 		retVal.add(Box.createVerticalStrut(10));
 		retVal.add(okButton);
-		
+
 		return retVal;
 	}
-	
-	private void setFontSize(JLabel label, int fontSize){
-		label.setFont(label.getFont().deriveFont((float)fontSize));
+
+	private void setFontSize(JLabel label, int fontSize) {
+		label.setFont(label.getFont().deriveFont((float) fontSize));
 		label.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 	}
-	
+
 }
