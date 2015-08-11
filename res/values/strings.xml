@@ -4,5 +4,11 @@
     <string name="app_name">Brainstonz for Android</string>
     <string name="title_activity_splash">Brainstonz</string>
     <string name="redirect_activity_is_missing_message">Redirect activity is missing!</string>
+    <string name="title_activity_game">Brainstonz</string>
+    <string name="title_activity_about">About</string>
+    <string name="exit_menu">Exit</string>
+    <string name="help_menu">Help</string>
+    <string name="about_menu">About</string>
+    <string name="title_activity_help">Help</string>
 
 </resources>
