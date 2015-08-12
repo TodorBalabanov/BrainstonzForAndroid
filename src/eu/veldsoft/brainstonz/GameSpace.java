@@ -42,17 +42,17 @@ class GameSpace extends JPanel {
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				EventHandler.getInstance().mouseEnter(GameSpace.this, e);
+				SwingEventHandler.getInstance().mouseEnter(GameSpace.this, e);
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				EventHandler.getInstance().mouseExit(GameSpace.this, e);
+				SwingEventHandler.getInstance().mouseExit(GameSpace.this, e);
 			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				EventHandler.getInstance().mouseClick(GameSpace.this, e);
+				SwingEventHandler.getInstance().mouseClick(GameSpace.this, e);
 			}
 
 			@Override
@@ -68,7 +68,7 @@ class GameSpace extends JPanel {
 
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				EventHandler.getInstance().mouseEnter(GameSpace.this, e);
+				SwingEventHandler.getInstance().mouseEnter(GameSpace.this, e);
 			}
 
 		});

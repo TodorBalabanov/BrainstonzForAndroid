@@ -37,7 +37,7 @@ class GameBoard extends JPanel {
 		this.add(innerBoard);
 		this.setOpaque(false);
 		shuffleStonz();
-		EventHandler.getInstance().registerBoard(this);
+		SwingEventHandler.getInstance().registerBoard(this);
 	}
 
 	public void reset() {

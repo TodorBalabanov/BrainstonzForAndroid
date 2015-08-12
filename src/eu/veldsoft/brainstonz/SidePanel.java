@@ -19,8 +19,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import eu.veldsoft.brainstonz.EventHandler.BrainstonzPlayer;
-
 @SuppressWarnings("serial")
 class SidePanel extends JPanel {
 
@@ -57,7 +55,7 @@ class SidePanel extends JPanel {
 		gbc.weighty = 1;
 		this.add(instructions, gbc);
 
-		EventHandler.getInstance().registerSidePanel(this);
+		SwingEventHandler.getInstance().registerSidePanel(this);
 	}
 
 	public void setNewGameEnabled(boolean enabled) {
