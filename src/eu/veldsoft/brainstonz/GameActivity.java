@@ -25,6 +25,13 @@ public class GameActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+		case R.id.new_game:
+			break;
+		case R.id.start_game:
+			break;
+		case R.id.options:
+			startActivity(new Intent(GameActivity.this, SettingsActivity.class));
+			break;
 		case R.id.help:
 			startActivity(new Intent(GameActivity.this, HelpActivity.class));
 			break;

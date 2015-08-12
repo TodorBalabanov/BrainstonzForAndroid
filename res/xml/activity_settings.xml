@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="Black" >
+        <ListPreference
+            android:entries="@array/player_type_titles"
+            android:entryValues="@array/player_type_values"
+            android:key="player_type_1"
+            android:title="Player Type" />
+        <ListPreference
+            android:entries="@array/skills_level_titles"
+            android:entryValues="@array/skills_level_values"
+            android:key="player_skills_1"
+            android:title="Player Skills" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="White" >
+        <ListPreference
+            android:entries="@array/player_type_titles"
+            android:entryValues="@array/player_type_values"
+            android:key="player_type_2"
+            android:title="Player Type" />
+        <ListPreference
+            android:entries="@array/skills_level_titles"
+            android:entryValues="@array/skills_level_values"
+            android:key="player_skills_2"
+            android:title="Player Skills" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Animation" >
+        <ListPreference
+            android:entries="@array/animation_speed_titles"
+            android:entryValues="@array/animation_speed_values"
+            android:key="animation_speed"
+            android:title="Animation Speed" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -2,6 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
+        android:id="@+id/new_game"
+        android:title="@string/new_game_menu"/>
+    
+    <item
+        android:id="@+id/start_game"
+        android:title="@string/start_game_menu"/>
+    
+    <item
+        android:id="@+id/options"
+        android:title="@string/options_menu"/>
+    
+    <item
         android:id="@+id/help"
         android:title="@string/help_menu"/>
 
