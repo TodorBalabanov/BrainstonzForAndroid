@@ -20,7 +20,7 @@ public class BrainstonzApplet extends JApplet {
 	@Override
 	public void init() {
 		try {
-			BrainstonzAI.load();
+			BrainstonzAI.load( BrainstonzAI.class.getResourceAsStream("/tree.dat") );
 			ImageLoader.load();
 			UIManager
 					.setLookAndFeel("net.beeger.squareness.SquarenessLookAndFeel");

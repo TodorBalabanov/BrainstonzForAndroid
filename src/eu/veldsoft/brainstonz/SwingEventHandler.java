@@ -64,8 +64,8 @@ class SwingEventHandler extends EventHandler {
 						setVal = ((i + 1) % 2) * player; // Even --> player, Odd
 															// --> 0 (remove)
 						space = board.spaces[succ.moves[i]];
-						state = BrainstonzState.set(state, succ.moves[i],
-								setVal);
+						//TODO Separate business logic from presentation. 
+						state = BrainstonzState.set(state, succ.moves[i], setVal);
 						space.setHighlighted(true);
 						space.repaint();
 						for (int j = i + 1; j < 4; j++) {
@@ -120,7 +120,7 @@ class SwingEventHandler extends EventHandler {
 	}
 
 	public void mouseClick(GameSpace space, MouseEvent e) {
-		if (isValidSpace(space) && !computerMoving) {
+		if (isValidSpace(space.getPosition()) && !computerMoving) {
 			int position = space.getPosition();
 			int temp;
 			switch (gamestate) {
@@ -222,7 +222,7 @@ class SwingEventHandler extends EventHandler {
 	}
 
 	public void mouseEnter(GameSpace space, MouseEvent e) {
-		if (isValidSpace(space)) {
+		if (isValidSpace(space.getPosition())) {
 			space.setHighlighted(true);
 			space.repaint();
 		}

@@ -20,7 +20,7 @@ public class Brainstonz {
 	 */
 	public static void main(String[] args) {
 		try {
-			BrainstonzAI.load();
+			BrainstonzAI.load( BrainstonzAI.class.getResourceAsStream("/tree.dat") );
 			ImageLoader.load();
 			UIManager
 					.setLookAndFeel("net.beeger.squareness.SquarenessLookAndFeel");

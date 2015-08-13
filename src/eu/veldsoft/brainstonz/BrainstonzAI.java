@@ -15,10 +15,9 @@ class BrainstonzAI {
 
 	private static byte[] tree = null;
 
-	public static void load() throws IOException {
-
-		InputStream is = BrainstonzAI.class.getResourceAsStream("/tree.dat");
-
+	static InputStream is = null;
+	
+	public static void load(InputStream is) throws IOException {
 		// Get the size of the file
 		long length = is.available();
 
@@ -60,7 +59,13 @@ class BrainstonzAI {
 				// Maximize or Minimize?
 				if (player == 1) {
 					// Get Value of Successor
-					temp = BrainstonzState.get((int) tree[s.state], 3);
+					int value = 0;
+					if(tree == null) {
+						value = fromFile(s.state);
+					} else {
+						value = tree[s.state];
+					}
+					temp = BrainstonzState.get(value, 3);
 					temp = temp == 2 ? -1 : temp;
 					// If Greater than Max, update extreme value
 					// and point tempsucc to successor
@@ -70,7 +75,13 @@ class BrainstonzAI {
 					}
 				} else {
 					// Get Value of Successor
-					temp = BrainstonzState.get((int) tree[s.state], 1);
+					int value = 0;
+					if(tree == null) {
+						value = fromFile(s.state);
+					} else {
+						value = tree[s.state];
+					}
+					temp = BrainstonzState.get(value, 1);
 					temp = temp == 2 ? -1 : temp;
 					// If Less than Min, update extreme value
 					// and point tempsucc to successor
@@ -88,6 +99,20 @@ class BrainstonzAI {
 			int rand = (int) (succs.size() * Math.random());
 			return succs.get(rand);
 		}
+	}
+
+	private static int fromFile(int index) {
+		int result = 0;
+		try {
+			is.reset();
+			for(int i=0; i<index; i++){
+				is.read();
+			}
+			result = is.read();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }

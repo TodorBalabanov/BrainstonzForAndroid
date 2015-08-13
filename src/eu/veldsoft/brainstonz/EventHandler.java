@@ -51,7 +51,7 @@ class EventHandler {
 		}
 	}
 
-	public boolean isValidSpace(GameSpace space) {
+	public boolean isValidSpace(int position) {
 		if (computerMoving)
 			return false;
 		switch (gamestate) {
@@ -65,13 +65,13 @@ class EventHandler {
 		case P1M2:
 		case P2M1:
 		case P2M2:
-			return BrainstonzState.get(state, space.getPosition()) == 0;
+			return BrainstonzState.get(state, position) == 0;
 		case P1R1:
 		case P1R2:
-			return BrainstonzState.get(state, space.getPosition()) == 2;
+			return BrainstonzState.get(state, position) == 2;
 		case P2R1:
 		case P2R2:
-			return BrainstonzState.get(state, space.getPosition()) == 1;
+			return BrainstonzState.get(state, position) == 1;
 		}
 		return false;
 	}
