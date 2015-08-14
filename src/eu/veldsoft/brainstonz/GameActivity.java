@@ -50,9 +50,9 @@ public class GameActivity extends Activity {
 				.getDefaultSharedPreferences(this);
 
 		model.aiSkillz[1] = Double.valueOf(preferences.getString(
-				"player_skills_1", "1.0"));
+				"player_skills_1", "0.0"));
 		model.aiSkillz[2] = Double.valueOf(preferences.getString(
-				"player_skills_2", "1.0"));
+				"player_skills_2", "0.0"));
 		switch (Integer.valueOf(preferences.getString("player_type_1", "1"))) {
 		case 1:
 			model.player1 = BrainstonzPlayer.HUMAN;
@@ -61,7 +61,7 @@ public class GameActivity extends Activity {
 			model.player1 = BrainstonzPlayer.COMPUTER;
 			break;
 		}
-		switch (Integer.valueOf(preferences.getString("player_type_2", "1"))) {
+		switch (Integer.valueOf(preferences.getString("player_type_2", "2"))) {
 		case 1:
 			model.player2 = BrainstonzPlayer.HUMAN;
 			break;
@@ -71,7 +71,7 @@ public class GameActivity extends Activity {
 		}
 
 		model.delay = Integer.valueOf(preferences.getString("animation_speed",
-				"2000"));
+				"1500"));
 	}
 
 	private int getPosition(View view) {
@@ -339,8 +339,6 @@ public class GameActivity extends Activity {
 				GameModel.getInstance().computerTurn(1);
 			}
 			updateViews();
-			break;
-		case R.id.start_game:
 			break;
 		case R.id.options:
 			startActivity(new Intent(GameActivity.this, SettingsActivity.class));

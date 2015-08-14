@@ -1,7 +1,5 @@
 package eu.veldsoft.brainstonz;
 
-import javax.swing.SwingUtilities;
-
 class GameModel {
 
 	static final String[] moveLabels = { "Place First Stone", "Remove A Stone",

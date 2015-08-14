@@ -6,7 +6,6 @@
     <string name="redirect_activity_is_missing_message">Redirect activity is missing!</string>
     <string name="title_activity_game">Brainstonz\u2122 by McWiz</string>
     <string name="title_activity_about">About</string>
-    <string name="start_game_menu">Start Game</string>
     <string name="exit_menu">Exit</string>
     <string name="help_menu">Help</string>
     <string name="about_menu">About</string>
