@@ -49,9 +49,11 @@ public class GameActivity extends Activity {
 		SharedPreferences preferences = PreferenceManager
 				.getDefaultSharedPreferences(this);
 
-		model.aiSkillz[1] = preferences.getFloat("player_skills_1", 1.0F);
-		model.aiSkillz[2] = preferences.getFloat("player_skills_2", 1.0F);
-		switch (preferences.getInt("player_type_1", 1)) {
+		model.aiSkillz[1] = Double.valueOf(preferences.getString(
+				"player_skills_1", "1.0"));
+		model.aiSkillz[2] = Double.valueOf(preferences.getString(
+				"player_skills_2", "1.0"));
+		switch (Integer.valueOf(preferences.getString("player_type_1", "1"))) {
 		case 1:
 			model.player1 = BrainstonzPlayer.HUMAN;
 			break;
@@ -59,7 +61,7 @@ public class GameActivity extends Activity {
 			model.player1 = BrainstonzPlayer.COMPUTER;
 			break;
 		}
-		switch (preferences.getInt("player_type_2", 1)) {
+		switch (Integer.valueOf(preferences.getString("player_type_2", "1"))) {
 		case 1:
 			model.player2 = BrainstonzPlayer.HUMAN;
 			break;
@@ -67,6 +69,9 @@ public class GameActivity extends Activity {
 			model.player2 = BrainstonzPlayer.COMPUTER;
 			break;
 		}
+
+		model.delay = Integer.valueOf(preferences.getString("animation_speed",
+				"2000"));
 	}
 
 	private int getPosition(View view) {
@@ -226,13 +231,11 @@ public class GameActivity extends Activity {
 								model.endGame(temp);
 								break;
 							}
-							if (BrainstonzState
-									.getPair(model.state, position) == 1) {
+							if (BrainstonzState.getPair(model.state, position) == 1) {
 								model.moveText = model.moveLabels[1];
 								model.gamestate = GameState.P1R1;
 							} else {
-								if (!BrainstonzState
-										.hasEmptySpace(model.state)) {
+								if (!BrainstonzState.hasEmptySpace(model.state)) {
 									model.endGame(0);
 									break;
 								}
@@ -248,8 +251,7 @@ public class GameActivity extends Activity {
 								model.endGame(temp);
 								break;
 							}
-							if (BrainstonzState
-									.getPair(model.state, position) == 1) {
+							if (BrainstonzState.getPair(model.state, position) == 1) {
 								model.moveText = model.moveLabels[3];
 								model.gamestate = GameState.P1R2;
 							} else
@@ -263,13 +265,11 @@ public class GameActivity extends Activity {
 								model.endGame(temp);
 								break;
 							}
-							if (BrainstonzState
-									.getPair(model.state, position) == 2) {
+							if (BrainstonzState.getPair(model.state, position) == 2) {
 								model.moveText = model.moveLabels[1];
 								model.gamestate = GameState.P2R1;
 							} else {
-								if (!BrainstonzState
-										.hasEmptySpace(model.state)) {
+								if (!BrainstonzState.hasEmptySpace(model.state)) {
 									model.endGame(0);
 									break;
 								}
@@ -285,8 +285,7 @@ public class GameActivity extends Activity {
 								model.endGame(temp);
 								break;
 							}
-							if (BrainstonzState
-									.getPair(model.state, position) == 2) {
+							if (BrainstonzState.getPair(model.state, position) == 2) {
 								model.moveText = model.moveLabels[3];
 								model.gamestate = GameState.P2R2;
 							} else

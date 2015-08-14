@@ -33,11 +33,11 @@
         <item name="4">Very Fast</item>
     </string-array>
     <string-array name="animation_speed_values">
-        <item name="0">0</item>
-        <item name="1">25</item>
-        <item name="2">50</item>
-        <item name="3">75</item>
-        <item name="4">100</item>
+        <item name="0">2000</item>
+        <item name="1">1750</item>
+        <item name="2">1500</item>
+        <item name="3">1250</item>
+        <item name="4">1000</item>
     </string-array>
     
 </resources>

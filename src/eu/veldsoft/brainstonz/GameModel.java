@@ -1,17 +1,18 @@
 package eu.veldsoft.brainstonz;
 
+import javax.swing.SwingUtilities;
+
 class GameModel {
 
-	static final String[] moveLabels = { "Place First Stone",
-			"Remove A Stone", "Place Second Stone", "Remove A Stone",
-			"First Move", "Game Over" };
+	static final String[] moveLabels = { "Place First Stone", "Remove A Stone",
+			"Place Second Stone", "Remove A Stone", "First Move", "Game Over" };
 
 	static final String[] turnLabels = { "BLACK'S TURN", "WHITE'S TURN",
 			"IT'S A TIE!", "BLACK WINS!", "WHITE WINS!" };
 
 	static String moveText = "";
 	static String turnText = "";
-	
+
 	static BrainstonzPlayer player1;
 	static BrainstonzPlayer player2;
 
@@ -20,15 +21,20 @@ class GameModel {
 
 	protected boolean computerMoving;
 	protected double[] aiSkillz;
+	protected int delay;
 
 	protected Successor succ = null;
-	
+
 	private static GameModel me = null;
 
 	public static GameModel getInstance() {
 		if (me == null)
 			return (me = new GameModel());
 		return me;
+	}
+
+	private int getDelay() {
+		return 2000 - delay;
 	}
 
 	public GameModel() {
@@ -45,7 +51,7 @@ class GameModel {
 		case PREGAME:
 			newGame();
 			return;
-			
+
 		case P1WIN:
 		case P2WIN:
 		case TIE:
@@ -126,8 +132,8 @@ class GameModel {
 			return;
 		}
 		computerMoving = false;
-		
-		turnText = turnLabels[player-1];
+
+		turnText = turnLabels[player - 1];
 		moveText = moveLabels[0];
 
 		if (player == 1) {
@@ -146,6 +152,43 @@ class GameModel {
 	protected void computerTurn(final int player) {
 		computerMoving = true;
 		succ = BrainstonzAI.move(state, player, aiSkillz[player]);
+
+		Thread computer = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				if (succ == null) {
+					return;
+				}
+				int setVal;
+				try {
+					Thread.sleep(getDelay());
+				} catch (InterruptedException e) {
+				}
+				for (int i = 0; i < 4; i++) {
+					if (succ.moves[i] != -1) {
+						/*
+						 * Even --> player, Odd --> 0 (remove)
+						 */
+						setVal = ((i + 1) % 2) * player;
+						state = BrainstonzState.set(state, succ.moves[i],
+								setVal);
+						for (int j = i + 1; j < 4; j++) {
+							if (succ.moves[j] != -1) {
+								moveText = moveLabels[j];
+								break;
+							}
+						}
+						try {
+							Thread.sleep(getDelay());
+						} catch (InterruptedException e) {
+						}
+					}
+				}
+
+				newTurn(BrainstonzState.opponent[player]);
+			}
+		});
+		computer.start();
 	}
 
 	public int playerAt(int position) {
