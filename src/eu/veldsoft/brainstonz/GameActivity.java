@@ -1,8 +1,12 @@
 package eu.veldsoft.brainstonz;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -11,10 +15,59 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class GameActivity extends Activity {
-	private String MoveLabelText = "";
 	private ImageView spaces[][] = new ImageView[4][4];
 	private int black[][] = new int[4][4];
 	private int white[][] = new int[4][4];
+
+	private AtomicBoolean stop = new AtomicBoolean(false);
+	private Thread computer = new Thread(new Runnable() {
+		@Override
+		public void run() {
+			while (stop.get() == false) {
+				try {
+					if (GameModel.getInstance() != null
+							&& GameModel.getInstance().computerMoving == true) {
+						GameActivity.this.runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								updateViews();
+							}
+						});
+					}
+
+					Thread.currentThread().sleep(200);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	});
+
+	private void adjustGameModelParameters() {
+		GameModel model = GameModel.getInstance();
+
+		SharedPreferences preferences = PreferenceManager
+				.getDefaultSharedPreferences(this);
+
+		model.aiSkillz[1] = preferences.getFloat("player_skills_1", 1.0F);
+		model.aiSkillz[2] = preferences.getFloat("player_skills_2", 1.0F);
+		switch (preferences.getInt("player_type_1", 1)) {
+		case 1:
+			model.player1 = BrainstonzPlayer.HUMAN;
+			break;
+		case 2:
+			model.player1 = BrainstonzPlayer.COMPUTER;
+			break;
+		}
+		switch (preferences.getInt("player_type_2", 1)) {
+		case 1:
+			model.player2 = BrainstonzPlayer.HUMAN;
+			break;
+		case 2:
+			model.player2 = BrainstonzPlayer.COMPUTER;
+			break;
+		}
+	}
 
 	private int getPosition(View view) {
 		for (int j = 0, position = 0; j < 4; j++) {
@@ -29,11 +82,14 @@ public class GameActivity extends Activity {
 	}
 
 	private void updateViews() {
-		((TextView) findViewById(R.id.move_text)).setText(MoveLabelText);
+		((TextView) findViewById(R.id.move_text)).setText(GameModel
+				.getInstance().moveText);
+		((TextView) findViewById(R.id.turn_text)).setText(GameModel
+				.getInstance().turnText);
 
 		for (int j = 0, position = 0; j < 4; j++) {
 			for (int i = 0; i < 4; i++, position++) {
-				int player = EventHandler.getInstance().playerAt(position);
+				int player = GameModel.getInstance().playerAt(position);
 				switch (player) {
 				case 1:
 					spaces[i][j].setImageResource(black[i][j]);
@@ -104,9 +160,17 @@ public class GameActivity extends Activity {
 	}
 
 	@Override
+	protected void onDestroy() {
+		stop.set(true);
+		super.onDestroy();
+	}
+
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
+
+		computer.start();
 
 		BrainstonzAI.is = getResources().openRawResource(R.raw.tree);
 
@@ -134,121 +198,121 @@ public class GameActivity extends Activity {
 				view.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						EventHandler handler = EventHandler.getInstance();
+						GameModel model = GameModel.getInstance();
 
 						int position = GameActivity.this.getPosition(v);
 
-						if (!(handler.isValidSpace(position) && !handler.computerMoving)) {
+						if (!(model.isValidSpace(position) && !model.computerMoving)) {
 							return;
 						}
 
 						int temp;
-						switch (handler.gamestate) {
+						switch (model.gamestate) {
 						case PREGAME:
 						case TIE:
 						case P1WIN:
 						case P2WIN:
 							return;
 						case FIRSTMOVE:
-							handler.state = BrainstonzState.set(handler.state,
+							model.state = BrainstonzState.set(model.state,
 									position, 1);
-							handler.newTurn(2);
+							model.newTurn(2);
 							break;
 						case P1M1:
-							handler.state = BrainstonzState.set(handler.state,
+							model.state = BrainstonzState.set(model.state,
 									position, 1);
 							// Check for a win
-							if ((temp = BrainstonzState.terminal(handler.state)) != 0) {
-								handler.endGame(temp);
+							if ((temp = BrainstonzState.terminal(model.state)) != 0) {
+								model.endGame(temp);
 								break;
 							}
 							if (BrainstonzState
-									.getPair(handler.state, position) == 1) {
-								MoveLabelText = handler.moveLabels[1];
-								handler.gamestate = GameState.P1R1;
+									.getPair(model.state, position) == 1) {
+								model.moveText = model.moveLabels[1];
+								model.gamestate = GameState.P1R1;
 							} else {
 								if (!BrainstonzState
-										.hasEmptySpace(handler.state)) {
-									handler.endGame(0);
+										.hasEmptySpace(model.state)) {
+									model.endGame(0);
 									break;
 								}
-								MoveLabelText = handler.moveLabels[2];
-								handler.gamestate = GameState.P1M2;
+								model.moveText = model.moveLabels[2];
+								model.gamestate = GameState.P1M2;
 							}
 							break;
 						case P1M2:
-							handler.state = BrainstonzState.set(handler.state,
+							model.state = BrainstonzState.set(model.state,
 									position, 1);
 							// Check for a win
-							if ((temp = BrainstonzState.terminal(handler.state)) != 0) {
-								handler.endGame(temp);
+							if ((temp = BrainstonzState.terminal(model.state)) != 0) {
+								model.endGame(temp);
 								break;
 							}
 							if (BrainstonzState
-									.getPair(handler.state, position) == 1) {
-								MoveLabelText = handler.moveLabels[3];
-								handler.gamestate = GameState.P1R2;
+									.getPair(model.state, position) == 1) {
+								model.moveText = model.moveLabels[3];
+								model.gamestate = GameState.P1R2;
 							} else
-								handler.newTurn(2);
+								model.newTurn(2);
 							break;
 						case P2M1:
-							handler.state = BrainstonzState.set(handler.state,
+							model.state = BrainstonzState.set(model.state,
 									position, 2);
 							// Check for a win
-							if ((temp = BrainstonzState.terminal(handler.state)) != 0) {
-								handler.endGame(temp);
+							if ((temp = BrainstonzState.terminal(model.state)) != 0) {
+								model.endGame(temp);
 								break;
 							}
 							if (BrainstonzState
-									.getPair(handler.state, position) == 2) {
-								MoveLabelText = handler.moveLabels[1];
-								handler.gamestate = GameState.P2R1;
+									.getPair(model.state, position) == 2) {
+								model.moveText = model.moveLabels[1];
+								model.gamestate = GameState.P2R1;
 							} else {
 								if (!BrainstonzState
-										.hasEmptySpace(handler.state)) {
-									handler.endGame(0);
+										.hasEmptySpace(model.state)) {
+									model.endGame(0);
 									break;
 								}
-								MoveLabelText = handler.moveLabels[2];
-								handler.gamestate = GameState.P2M2;
+								model.moveText = model.moveLabels[2];
+								model.gamestate = GameState.P2M2;
 							}
 							break;
 						case P2M2:
-							handler.state = BrainstonzState.set(handler.state,
+							model.state = BrainstonzState.set(model.state,
 									position, 2);
 							// Check for a win
-							if ((temp = BrainstonzState.terminal(handler.state)) != 0) {
-								handler.endGame(temp);
+							if ((temp = BrainstonzState.terminal(model.state)) != 0) {
+								model.endGame(temp);
 								break;
 							}
 							if (BrainstonzState
-									.getPair(handler.state, position) == 2) {
-								MoveLabelText = handler.moveLabels[3];
-								handler.gamestate = GameState.P2R2;
+									.getPair(model.state, position) == 2) {
+								model.moveText = model.moveLabels[3];
+								model.gamestate = GameState.P2R2;
 							} else
-								handler.newTurn(1);
+								model.newTurn(1);
 							break;
 						case P1R1:
-							handler.state = BrainstonzState.set(handler.state,
+							model.state = BrainstonzState.set(model.state,
 									position, 0);
-							MoveLabelText = handler.moveLabels[2];
-							handler.gamestate = GameState.P1M2;
+							model.moveText = model.moveLabels[2];
+							model.gamestate = GameState.P1M2;
 							break;
 						case P1R2:
-							handler.state = BrainstonzState.set(handler.state,
+							model.state = BrainstonzState.set(model.state,
 									position, 0);
-							handler.newTurn(2);
+							model.newTurn(2);
 							break;
 						case P2R1:
-							handler.state = BrainstonzState.set(handler.state,
+							model.state = BrainstonzState.set(model.state,
 									position, 0);
-							MoveLabelText = handler.moveLabels[2];
-							handler.gamestate = GameState.P2M2;
+							model.moveText = model.moveLabels[2];
+							model.gamestate = GameState.P2M2;
 							break;
 						case P2R2:
-							handler.state = BrainstonzState.set(handler.state,
+							model.state = BrainstonzState.set(model.state,
 									position, 0);
-							handler.newTurn(1);
+							model.newTurn(1);
 							break;
 						}
 
@@ -270,12 +334,14 @@ public class GameActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.new_game:
-			EventHandler.getInstance().newGame();
+			adjustGameModelParameters();
+			GameModel.getInstance().newGame();
+			if (GameModel.getInstance().player1 == BrainstonzPlayer.COMPUTER) {
+				GameModel.getInstance().computerTurn(1);
+			}
 			updateViews();
 			break;
 		case R.id.start_game:
-			EventHandler.getInstance().newGame();
-			updateViews();
 			break;
 		case R.id.options:
 			startActivity(new Intent(GameActivity.this, SettingsActivity.class));

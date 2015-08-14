@@ -96,7 +96,7 @@ class GameSpace extends JPanel {
 	}
 
 	private void paintStone(Graphics g) {
-		int player = EventHandler.getInstance().playerAt(position);
+		int player = GameModel.getInstance().playerAt(position);
 		if (player > 0) {
 			BufferedImage stone = stonz[player];
 			g.drawImage(stone, 0, 0, this.getWidth(), this.getHeight(), 0, 0,

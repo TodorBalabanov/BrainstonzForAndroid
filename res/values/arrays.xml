@@ -2,12 +2,12 @@
 <resources>
 
     <string-array name="player_type_titles">
-        <item name="0">Human</item>
-        <item name="1">Computer</item>
+        <item name="1">Human</item>
+        <item name="2">Computer</item>
     </string-array>
     <string-array name="player_type_values">
-        <item name="0">0</item>
         <item name="1">1</item>
+        <item name="2">2</item>
     </string-array>
     
     <string-array name="skills_level_titles">
@@ -18,36 +18,12 @@
         <item name="4">Very Hard</item>
     </string-array>
     <string-array name="skills_level_values">
-        <item name="0">0</item>
-        <item name="1">25</item>
-        <item name="2">50</item>
-        <item name="3">75</item>
-        <item name="4">100</item>
+        <item name="0">0.0</item>
+        <item name="1">0.25</item>
+        <item name="2">0.5</item>
+        <item name="3">0.75</item>
+        <item name="4">1.0</item>
     </string-array>
-
-<!--     <string-array name="player_type_titles_2"> -->
-<!--         <item name="0">Human</item> -->
-<!--         <item name="1">Computer</item> -->
-<!--     </string-array> -->
-<!--     <string-array name="player_type_values_2"> -->
-<!--         <item name="0">0</item> -->
-<!--         <item name="1">1</item> -->
-<!--     </string-array> -->
-    
-<!--     <string-array name="skills_level_titles_2"> -->
-<!--         <item name="0">Very Easy</item> -->
-<!--         <item name="1">Easy</item> -->
-<!--         <item name="2">Normal</item> -->
-<!--         <item name="3">Hard</item> -->
-<!--         <item name="4">Very Hard</item> -->
-<!--     </string-array> -->
-<!--     <string-array name="skills_level_values_2"> -->
-<!--         <item name="0">0</item> -->
-<!--         <item name="1">25</item> -->
-<!--         <item name="2">50</item> -->
-<!--         <item name="3">75</item> -->
-<!--         <item name="4">100</item> -->
-<!--     </string-array> -->
     
     <string-array name="animation_speed_titles">
         <item name="0">Very Slow</item>

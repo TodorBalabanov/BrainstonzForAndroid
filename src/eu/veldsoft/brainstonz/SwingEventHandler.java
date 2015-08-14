@@ -5,7 +5,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-class SwingEventHandler extends EventHandler {
+class SwingEventHandler extends GameModel {
 	protected Thread computerThread = null;
 
 	private static SwingEventHandler me = null;

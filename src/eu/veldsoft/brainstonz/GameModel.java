@@ -1,16 +1,19 @@
 package eu.veldsoft.brainstonz;
 
-class EventHandler {
+class GameModel {
 
-	public static final String[] moveLabels = { "Place First Stone",
+	static final String[] moveLabels = { "Place First Stone",
 			"Remove A Stone", "Place Second Stone", "Remove A Stone",
 			"First Move", "Game Over" };
 
-	public static final String[] turnLabels = { "BLACK'S TURN", "WHITE'S TURN",
+	static final String[] turnLabels = { "BLACK'S TURN", "WHITE'S TURN",
 			"IT'S A TIE!", "BLACK WINS!", "WHITE WINS!" };
 
-	public static BrainstonzPlayer player1;
-	public static BrainstonzPlayer player2;
+	static String moveText = "";
+	static String turnText = "";
+	
+	static BrainstonzPlayer player1;
+	static BrainstonzPlayer player2;
 
 	protected static int state;
 	protected static GameState gamestate;
@@ -20,15 +23,15 @@ class EventHandler {
 
 	protected Successor succ = null;
 	
-	private static EventHandler me = null;
+	private static GameModel me = null;
 
-	public static EventHandler getInstance() {
+	public static GameModel getInstance() {
 		if (me == null)
-			return (me = new EventHandler());
+			return (me = new GameModel());
 		return me;
 	}
 
-	public EventHandler() {
+	public GameModel() {
 		player1 = BrainstonzPlayer.HUMAN;
 		player2 = BrainstonzPlayer.COMPUTER;
 		state = 0;
@@ -85,6 +88,8 @@ class EventHandler {
 	protected void newGame() {
 		computerMoving = false;
 		state = 0;
+		turnText = turnLabels[0];
+		moveText = moveLabels[4];
 		gamestate = GameState.FIRSTMOVE;
 		if (player1 == BrainstonzPlayer.COMPUTER) {
 			computerTurn(1);
@@ -92,6 +97,9 @@ class EventHandler {
 	}
 
 	protected void endGame(int winner) {
+		turnText = turnLabels[winner + 2];
+		moveText = moveLabels[5];
+
 		switch (winner) {
 		case 0:
 			gamestate = GameState.TIE;
@@ -118,6 +126,9 @@ class EventHandler {
 			return;
 		}
 		computerMoving = false;
+		
+		turnText = turnLabels[player-1];
+		moveText = moveLabels[0];
 
 		if (player == 1) {
 			gamestate = GameState.P1M1;

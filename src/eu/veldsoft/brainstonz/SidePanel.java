@@ -200,7 +200,7 @@ class SidePanel extends JPanel {
 			newGame.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					EventHandler.getInstance().newGameButton();
+					GameModel.getInstance().newGameButton();
 				}
 			});
 			newGame.setEnabled(true);
