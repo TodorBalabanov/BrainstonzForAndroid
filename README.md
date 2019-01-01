@@ -1,3 +1,3 @@
 # BrainstonzForAndroid
 
-Implementation of the Brainstonz board game with AI,
+Implementation of the Brainstonz board game with AI.
